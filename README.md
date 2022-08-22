@@ -9,5 +9,8 @@ This bot is written in python, and depends on the discord.py v2.0.0 or higher li
 
 v0.1a
 ###### [+] Basic nuker command made.
-###### [+] Basic stop command made, to forcibly close all connections to discord.
-###### [+] Verification check to make sure only the bot owner can use both main nuking commands.
+- Deletes all channels.
+- Creates {nuking-changelog, nuking-reason, dumbasses-complaining} channels.
+
+###### [+] Stop command made.
+- Forcibly closes all connections to discord. This means that to re-run the nuke command, you'll need to re-run the main.py.
