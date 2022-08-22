@@ -1,1 +1,18 @@
-
+{
+    "bot_token":"",
+    "bot_prefix":"rip!",
+    "server_nuked_name":"NUKER MADE BY JOEE",
+    "nuked_channel_names":[
+        "NUKED","IMAGINE","LOL","L","+","RATIO","BOZO"
+    ],
+    "spam_messages":[
+        "@everyone NUKED ",
+        "LOLOLOL @everyone IMAGINE",
+        "i spent so long making this nuker bot someone please appreciate it :c @everyone",
+        "uwu @everyone chan",
+        "wsg mfers (@everyone)",
+        "@everyone thinks this is the best nuker bot (made by joee)",
+        "NUKER MADE BY JOEE @everyone",
+        "JOEE IS SO COOL FOR MAKING THIS NUKER @everyone"
+    ]
+}
