@@ -1,5 +1,4 @@
 # NukerBott  
-#### v0.1a
 
 A simple (?) discord Nuker Bot made by Joee. In order to use this, you must know the basics of python, pip, and how to make a discord bot.  
 This bot is written in python, and depends on the discord.py v2.0.0 or higher library.  
