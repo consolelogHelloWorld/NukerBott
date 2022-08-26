@@ -7,13 +7,13 @@ In order to use this, you must know the basics of python, pip, and how to make a
 ### Changelog:
 -=-=-=-=-=-=-
 
-###### [+] Basic nuker command made.
+###### [+] Basic `nuke` command made.
 - Deletes all channels.
 - Creates {nuking-changelog, nuking-reason, dumbasses-complaining} channels.
 - Tries to give @everyone administrator permissions (Usually succeeds).
 - Creates channels dedicated to spam pinging @everyone.
 
-###### [+] Stop command made.
+###### [+] Basic `stop` command made.
 - Forcibly closes all connections to discord, therefor causing the bot to go offline. This means that to re-run the nuke command, you'll need to re-run the main.py.
 
 ###### [+] Implemented `commands.is_owner()`.
